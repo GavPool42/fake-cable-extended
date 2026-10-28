@@ -260,7 +260,7 @@ export default async function handler(request,response) {
       if(!query)return response.status(400).json({error:'Type a channel name first.'});
       return response.status(200).json({results:await searchChannels(query)});
     }
-    const inputs=Array.isArray(request.body?.channels)?request.body.channels.map(String).filter(Boolean).slice(0,30):[];
+    const inputs=Array.isArray(request.body?.channels)?request.body.channels.map(String).filter(Boolean).slice(0,200):[];
     if(!inputs.length)return response.status(400).json({error:'Paste at least one YouTube channel link.'});
     const channels=(await mapLimit(inputs,4,async input=>{
       const playlistId=playlistIdFromInput(input);
